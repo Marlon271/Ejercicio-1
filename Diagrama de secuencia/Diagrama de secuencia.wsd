@@ -1,0 +1,41 @@
+@startuml
+
+actor Usuario
+participant "Sistema de Gestión de Biblioteca" as Sistema
+database "Inventario" as Inventario
+entity "Libro" as Libro
+
+activate Usuario
+
+Usuario -> Sistema: Solicitar lista de libros disponibles
+activate Sistema
+Sistema -> Inventario: Consultar inventario
+activate Inventario
+Inventario --> Sistema: Lista de libros disponibles
+deactivate Inventario
+Sistema --> Usuario: Lista de libros disponibles
+deactivate Sistema
+
+Usuario -> Sistema: Seleccionar libro para préstamo
+activate Sistema
+Sistema -> Libro: Verificar disponibilidad del libro
+activate Libro
+Libro --> Sistema: Disponibilidad del libro
+deactivate Libro
+Sistema -> Sistema: Actualizar inventario
+Sistema --> Usuario: Confirmación de disponibilidad
+Usuario -> Sistema: Solicitar préstamo
+Sistema --> Usuario: Confirmación de préstamo exitoso
+deactivate Sistema
+
+Usuario -> Sistema: Solicitar devolución de libro
+activate Sistema
+Sistema -> Usuario: Solicitar información del préstamo
+Usuario -> Sistema: Proporcionar información del préstamo
+Sistema -> Libro: Verificar préstamo
+activate Libro
+Libro --> Sistema: Estado del préstamo
+deactivate Libro
+Sistema -> Sistema: Registrar devolución
+Sistema --> Usuario: Confirmación de devolución exitosa
+@enduml
