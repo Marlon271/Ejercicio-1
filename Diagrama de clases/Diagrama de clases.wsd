@@ -1,52 +1,71 @@
 @startuml
-
 class Usuario {
-    - id: int
-    - nombre: String
-    - email: String
-    - direeccion: Float
-    + registrarUsuario()
-    + actualizarUsuario()
-    + eliminarUsuario()
+  - nombre: String
+  - direccion: String
+  - correoElectronico: String
+  - idUsuario: int
+  - contrasena: String
+  + registrar(): void
+  + buscarLibro(criteriosBusqueda): List<Libro>
+  + solicitarPrestamo(libro): Prestamo
+  + renovarPrestamo(prestamo): void
 }
 
 class Libro {
-    - id: int
-    - titulo: String
-    - autor: String
-    - categoria: String
-    - disponible: Boolean
-    + buscarLibro()
-    + reservarLibro()
-    + eliminarLibro()
+  - titulo: String
+  - autor: String
+  - categoria: String
+  - isbn: String
+  - anyoPublicacion: int
+  - idioma: String
+  - disponible: boolean
 }
 
 class Prestamo {
-    - id: int
-    - fechaPrestamo: Date
-    - fechaDevolucion: Date
-    - usuarioId: int
-    - libroId: int
-    + registrarPrestamo()
-    + registrarDevolucion()
-    + renovarPrestamo()
-    + multaDevolucion()
+  - fechaPrestamo: Date
+  - fechaVencimiento: Date
+  - estado: EstadoPrestamo
+  - libro: Libro
+  - usuario: Usuario
+  + calcularMulta(): float 
 }
 
-class Inventario {
-    - id: int
-    - libroId: int
-    - cantidad: int
-    + actualizarInventario()
-    + consultarInventario()
-    + agregarInventario
-    + eliminarInvenrario()
-    + seguimientoInventario()
-    + estadoInventario()
+enum EstadoPrestamo {
+  ACTIVO
+  RENOVADO
+  DEVUELTO
+  ATRASADO
 }
 
-Usuario "1" -- "*" Prestamo: realiza
-Libro "1" -- "*" Prestamo: se asocia
-Libro "1" -- "1" Inventario: está en
+class SistemaGestionBiblioteca {
+  - usuarios: List<Usuario>
+  - libros: List<Libro>
+  - prestamos: List<Prestamo>
+
+  + registrarUsuario(usuario): void
+  + eliminarUsuario(usuario): void
+  + buscarLibros(criteriosBusqueda): List<Libro>
+  + agregarLibro(libro): void
+  + eliminarLibro(libro): void
+  + solicitarPrestamo(usuario, libro): Prestamo
+  + renovarPrestamo(prestamo): void
+  + devolverPrestamo(prestamo): void
+  + gestionarInventario(): void
+  + generarInformes(): void
+}
+
+class Bibliotecario {
+  - sistema: SistemaGestionBiblioteca
+  + agregarLibro(libro): void
+  + eliminarLibro(libro): void
+  + gestionarUsuarios(): void
+  + generarInformes(): void
+}
+
+Usuario  o--  SistemaGestionBiblioteca 
+Libro  o--  SistemaGestionBiblioteca 
+Prestamo  o--  SistemaGestionBiblioteca 
+Usuario  --  Prestamo 
+Bibliotecario  --  SistemaGestionBiblioteca 
 
 @enduml
