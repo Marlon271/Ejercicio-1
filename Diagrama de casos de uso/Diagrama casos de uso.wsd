@@ -1,0 +1,15 @@
+@startuml
+actor Usuario
+actor Bibliotecario
+
+User -> (Registro de Usuarios)
+User -> (Búsqueda de Libros)
+User -> (Préstamo de Libros)
+Bibliotecario -> (Gestión de Inventario)
+
+(Registro de Usuarios) --> (Bibliotecario)
+(Búsqueda de Libros) --> (Bibliotecario)
+(Préstamo de Libros) --> (Bibliotecario)
+(Gestión de Inventario) --> (Bibliotecario)
+
+@enduml

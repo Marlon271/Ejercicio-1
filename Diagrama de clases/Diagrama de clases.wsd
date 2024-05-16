@@ -1,0 +1,52 @@
+@startuml
+
+class Usuario {
+    - id: int
+    - nombre: String
+    - email: String
+    - direeccion: Float
+    + registrarUsuario()
+    + actualizarUsuario()
+    + eliminarUsuario()
+}
+
+class Libro {
+    - id: int
+    - titulo: String
+    - autor: String
+    - categoria: String
+    - disponible: Boolean
+    + buscarLibro()
+    + reservarLibro()
+    + eliminarLibro()
+}
+
+class Prestamo {
+    - id: int
+    - fechaPrestamo: Date
+    - fechaDevolucion: Date
+    - usuarioId: int
+    - libroId: int
+    + registrarPrestamo()
+    + registrarDevolucion()
+    + renovarPrestamo()
+    + multaDevolucion()
+}
+
+class Inventario {
+    - id: int
+    - libroId: int
+    - cantidad: int
+    + actualizarInventario()
+    + consultarInventario()
+    + agregarInventario
+    + eliminarInvenrario()
+    + seguimientoInventario()
+    + estadoInventario()
+}
+
+Usuario "1" -- "*" Prestamo: realiza
+Libro "1" -- "*" Prestamo: se asocia
+Libro "1" -- "1" Inventario: está en
+
+@enduml
