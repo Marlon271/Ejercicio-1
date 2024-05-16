@@ -1,15 +1,25 @@
 @startuml
+left to right direction
 actor Usuario
 actor Bibliotecario
 
-User -> (Registro de Usuarios)
-User -> (Búsqueda de Libros)
-User -> (Préstamo de Libros)
-Bibliotecario -> (Gestión de Inventario)
+rectangle "Sistema de Gestión de Biblioteca" {
+    (Registro de Usuarios) as UC1
+    (Búsqueda de Libros) as UC2
+    (Préstamo de Libros) as UC3
+    (Devolución de Libros) as UC3_1
+    (Gestión de Inventario) as UC4
+    (Gestionar Usuarios) as UC5
+    (Generar Informes) as UC6
+    (Configurar el Sistema) as UC7
 
-(Registro de Usuarios) --> (Bibliotecario)
-(Búsqueda de Libros) --> (Bibliotecario)
-(Préstamo de Libros) --> (Bibliotecario)
-(Gestión de Inventario) --> (Bibliotecario)
-
+    Usuario -- UC1
+    Usuario -- UC2
+    Usuario -- UC3
+    Usuario -- UC3_1
+    Bibliotecario -- UC4 
+    Bibliotecario -- UC5
+    Bibliotecario -- UC6
+    Bibliotecario -- UC7
+}
 @enduml
